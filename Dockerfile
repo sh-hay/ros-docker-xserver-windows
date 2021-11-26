@@ -1,9 +1,13 @@
-FROM ubuntu:18.04
+FROM osrf/ros:melodic-desktop-bionic
 ENV DEBIAN_FRONTEND=noninteractive
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    ros-melodic-desktop-full=1.4.1-0* \
+    && rm -rf /var/lib/apt/lists/*
 
 RUN apt-get update && apt-get install -y \
     xserver-xorg \
-    x11-apps \
+    # x11-apps \
 && apt-get clean \
 && rm -rf /var/lib/apt/lists/*
 
@@ -14,6 +18,8 @@ ENV USER DockerUser
 USER DockerUser
 
 COPY ./ros_entrypoint.sh /
+COPY ./turtlesim.launch /
 ENTRYPOINT ["/ros_entrypoint.sh"]
 
-CMD ["xeyes"]
+CMD ["roslaunch", "/turtlesim.launch"]
+# CMD ["xeyes"]
