@@ -43,12 +43,17 @@ __XLaunchの設定__
 cd （任意のディレクトリ）
 git clone https://github.com/sh-hay/ros-docker-xserver-windows.git
 
-docker build -t xserver_test .
+docker build -t xserver_image .
 
-docker run -it --rm xserver_test # --rmはコンテナ終了時に自動で削除するオプション
+docker run -it --rm --name xserver_container xserver_image # --rmはコンテナ終了時に自動で削除するオプション
 ```
 
-マウスカーソルを追いかける目玉が出ればOK
+カメさんが出ればOK  
+別のターミナルを起動するには
+```bash
+docker exec -it xserver_container bash
+```
+
 
 ## 参考
 https://astherier.com/blog/2020/08/run-gui-apps-on-wsl2/
