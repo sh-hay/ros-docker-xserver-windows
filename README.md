@@ -1,10 +1,13 @@
-# Docker で GUI を表示する．
+# Docker で GUI を表示して，ROSパッケージを開発する．
 
 WSL2で起動したDockerコンテナ内のGUIアプリを表示する．
 
 [ROS wiki / docker / Tutorials / GUI](http://wiki.ros.org/docker/Tutorials/GUI)によるとDockerでGUIを表示する方法はいくつかあるが，どれも一長一短であるらしい．
 
-Windowsで主流な方法は3通りほどあるようだが，今回はXserverを使用する．
+Windowsで主流な方法は以下3通りほどあるようだが，今回はXserverを使用する．
+- VNC (描画が遅い)
+- Windows 11 の WSL2g（2021.12.13時点でInsider build 版のみ）
+- Xserver
 
 ## 動作を確認した環境
 - Windows 10 Home/Pro
@@ -40,6 +43,7 @@ __XLaunchの設定__
 
 ## 実行
 ```bash
+# WSL のターミナルにて
 cd （任意のディレクトリ）
 git clone https://github.com/sh-hay/ros-docker-xserver-windows.git
 
@@ -51,15 +55,12 @@ docker build -t xserver_image .
   # カレントディレクトリ内の Dockerfile を使用
 
 
-docker run -it --rm --volume ${PWD}/DockerUser:/home/DockerUser --name xserver_container xserver_image
+docker run -it --rm --name xserver_container xserver_image roslaunch /turtlesim.launch
   # --it
   # 標準入出力受付
 
   # --rm
   # コンテナ終了時に自動で起動したコンテナを削除する
-
-  # --volume ${PWD}/DockerUser:/home/DockerUser
-  # コンテナは実行環境から隔離されるため，[ホスト内のディレクトリ]:[コンテナ内のディレクトリ]で指定して同期する
 
   # --name xserver_container
   # 起動するコンテナ名を xserver_container とする（なんでもOK）
@@ -73,20 +74,41 @@ docker run -it --rm --volume ${PWD}/DockerUser:/home/DockerUser --name xserver_c
 ```
 
 カメさんが出ればOK  
-別のターミナルを起動するには
+Docker コンテナ内の別のターミナルを起動するには
 ```bash
+# 新しいWSL2ターミナルで
 docker exec -it xserver_container bash
 ```
 
-## 開発
+## コンテナ開発
 ```bash
-# URDFモデルを表示
-cd /home/DockerUser/catkin_ws/src/tortoisebot
+# 新しいWSL2ターミナルで
+docker run -it --rm --volume ${PWD}/DockerUser:/home/DockerUser --name xserver_container xserver_image
+  # --volume ${PWD}/DockerUser:/home/DockerUser
+  # コンテナは実行環境から隔離されるため，[ホスト内のディレクトリ]:[コンテナ内のディレクトリ]で指定して同期する
+
+
+# コンテナ内のターミナルで
+
+# rvizでURDFモデルを表示
+cd /home/DockerUser/catkin_ws/src/tortoisebot/src/urdf/
 roslaunch urdf_tutorial display.launch model:=tortoisebot.urdf
 
+
+
+# Gazeboでロボットモデルを表示
+roslaunch tortoisebot tortoisebot.launch
+
+# 別ターミナルからロボットを操作
+# コンテナのターミナル起動
+docker exec -it xserver_container bash
+
+rostopic pub -r 1 /cmd_vel geometry_msgs/Twist -- '[1.0, 0.0, 0.0]' '[0.0, 0.0, 0.5]'
 
 ```
 
 
 ## 参考
 https://astherier.com/blog/2020/08/run-gui-apps-on-wsl2/
+
+https://github.com/osrf/rosbook/tree/master/code/tortoisebot

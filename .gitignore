@@ -14,3 +14,8 @@
 /DockerUser/.bash_history
 /DockerUser/.ros/
 /DockerUser/.rviz/
+
+/DockerUser/.config/
+/DockerUser/.gazebo/
+/DockerUser/.ignition/
+/DockerUser/.sdformat/
