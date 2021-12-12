@@ -8,8 +8,15 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 RUN apt-get update && apt-get install -y \
     xserver-xorg \
     # x11-apps \
-&& apt-get clean \
-&& rm -rf /var/lib/apt/lists/*
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
+RUN apt-get update && apt-get install -y \
+    ros-melodic-joint-state-publisher \
+    ros-melodic-joint-state-publisher-gui \
+    ros-melodic-robot-state-publisher \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
 RUN useradd -m -d /home/DockerUser DockerUser -p $(perl -e 'print crypt("DockerUser", "salt"),"\n"') && \
     echo "DockerUser ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers

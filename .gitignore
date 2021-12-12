@@ -11,3 +11,6 @@
 /DockerUser/catkin_ws/devel
 
 /DockerUser/.bashrc
+/DockerUser/.bash_history
+/DockerUser/.ros/
+/DockerUser/.rviz/

@@ -78,6 +78,15 @@ docker run -it --rm --volume ${PWD}/DockerUser:/home/DockerUser --name xserver_c
 docker exec -it xserver_container bash
 ```
 
+## 開発
+```bash
+# URDFモデルを表示
+cd /home/DockerUser/catkin_ws/src/tortoisebot
+roslaunch urdf_tutorial display.launch model:=tortoisebot.urdf
+
+
+```
+
 
 ## 参考
 https://astherier.com/blog/2020/08/run-gui-apps-on-wsl2/
