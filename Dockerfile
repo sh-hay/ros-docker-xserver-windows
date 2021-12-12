@@ -17,9 +17,17 @@ RUN useradd -m -d /home/DockerUser DockerUser -p $(perl -e 'print crypt("DockerU
 ENV USER DockerUser
 USER DockerUser
 
+RUN mkdir -p /home/DockerUser/catkin_ws/src && \
+    cd /home/DockerUser/catkin_ws/src && \
+    /bin/bash -c "source /opt/ros/melodic/setup.bash; /opt/ros/melodic/bin/catkin_init_workspace" && \
+    cd /home/DockerUser/catkin_ws && \
+    /bin/bash -c "source /opt/ros/melodic/setup.bash; catkin_make"
+    # echo "source /opt/ros/melodic/setup.bash" >> ~/.bashrc && \
+    # echo "source /home/catkin_ws/devel/setup.bash" >> ~/.bashrc
+
 COPY ./ros_entrypoint.sh /
 COPY ./turtlesim.launch /
 ENTRYPOINT ["/ros_entrypoint.sh"]
 
-CMD ["roslaunch", "/turtlesim.launch"]
-# CMD ["xeyes"]
+# CMD ["roslaunch", "/turtlesim.launch"]
+CMD ["bash"]

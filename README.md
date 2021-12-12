@@ -44,8 +44,32 @@ cd （任意のディレクトリ）
 git clone https://github.com/sh-hay/ros-docker-xserver-windows.git
 
 docker build -t xserver_image .
+  # -t xserver_image
+  # ビルドする Docker image 名
 
-docker run -it --rm --name xserver_container xserver_image # --rmはコンテナ終了時に自動で削除するオプション
+  # .
+  # カレントディレクトリ内の Dockerfile を使用
+
+
+docker run -it --rm --volume ${PWD}/DockerUser:/home/DockerUser --name xserver_container xserver_image
+  # --it
+  # 標準入出力受付
+
+  # --rm
+  # コンテナ終了時に自動で起動したコンテナを削除する
+
+  # --volume ${PWD}/DockerUser:/home/DockerUser
+  # コンテナは実行環境から隔離されるため，[ホスト内のディレクトリ]:[コンテナ内のディレクトリ]で指定して同期する
+
+  # --name xserver_container
+  # 起動するコンテナ名を xserver_container とする（なんでもOK）
+
+  # xserver_image
+  # Docker image 名． 上の build コマンドで作成した．
+
+  # roslaunch /turtlesim.launch
+  # コンテナ起動時に実行するコマンド．何もつけなければ今回は bash が起動
+
 ```
 
 カメさんが出ればOK  

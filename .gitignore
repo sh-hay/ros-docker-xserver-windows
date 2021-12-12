@@ -1,0 +1,13 @@
+# /*
+# !/README.md
+# !/Dockerfile
+# !/ros_entrypoint.sh
+# !/turtlesim.launch
+# !/.gitignore
+# !/DockerUser/a
+# !/DockerUser/catkin_ws/src/*
+
+/DockerUser/catkin_ws/build
+/DockerUser/catkin_ws/devel
+
+/DockerUser/.bashrc
