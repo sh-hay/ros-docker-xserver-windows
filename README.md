@@ -45,8 +45,9 @@ __XLaunchの設定__
 ```bash
 # WSL のターミナルにて
 cd （任意のディレクトリ）
-git clone https://github.com/sh-hay/ros-docker-xserver-windows.git
+git clone git@github.com:sh-hay/ros-docker-xserver-windows.git
 
+cd ros-docker-xserver-windows
 docker build -t xserver_image .
   # -t xserver_image
   # ビルドする Docker image 名
@@ -82,7 +83,8 @@ docker exec -it xserver_container bash
 
 ## コンテナ開発
 ```bash
-# 新しいWSL2ターミナルで
+# WSL2ターミナルで
+cd ros-docker-xserver-windows
 docker run -it --rm --volume ${PWD}/DockerUser:/home/DockerUser --name xserver_container xserver_image
   # --volume ${PWD}/DockerUser:/home/DockerUser
   # コンテナは実行環境から隔離されるため，[ホスト内のディレクトリ]:[コンテナ内のディレクトリ]で指定して同期する
