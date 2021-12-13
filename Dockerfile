@@ -17,6 +17,8 @@ RUN apt-get update && apt-get install -y \
     ros-melodic-robot-state-publisher \
     ros-melodic-slam-gmapping \
     ros-melodic-map-server \
+    ros-melodic-amcl \
+    ros-melodic-move-base \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
