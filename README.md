@@ -99,7 +99,7 @@ roslaunch urdf_tutorial display.launch model:=tortoisebot.urdf
 
 ## ロボット自律移動
 
-![run_tortoisebot.launch](https://user-images.githubusercontent.com/58795536/145796012-2f7bf713-270b-4dd9-bbb1-93ed43ff5c57.mp4)
+https://user-images.githubusercontent.com/58795536/145796012-2f7bf713-270b-4dd9-bbb1-93ed43ff5c57.mp4
 
 ```
 cd ros-docker-xserver-windows
