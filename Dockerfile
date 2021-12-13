@@ -15,6 +15,8 @@ RUN apt-get update && apt-get install -y \
     ros-melodic-joint-state-publisher \
     ros-melodic-joint-state-publisher-gui \
     ros-melodic-robot-state-publisher \
+    ros-melodic-slam-gmapping \
+    ros-melodic-map-server \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
