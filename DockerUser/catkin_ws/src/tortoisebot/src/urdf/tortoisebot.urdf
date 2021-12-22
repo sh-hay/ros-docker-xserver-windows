@@ -1,6 +1,14 @@
 <?xml version="1.0"?>
 <robot name="tortoisebot">
 
+  <link name="dummy">
+  </link>
+
+  <joint name="dummy_joint" type="fixed">
+    <parent link="dummy"/>
+    <child link="base_link"/>
+  </joint>
+  
   <link name="base_link">
     <visual>
       <geometry>
@@ -46,7 +54,7 @@
     <origin rpy="0 0 0" xyz="0.3 0 0"/>
   </joint>
 
-  <link name="front_wheel">
+  <!-- <link name="front_wheel">
     <visual>
       <geometry>
         <cylinder length="0.05" radius="0.035"/>
@@ -121,10 +129,10 @@
     <parent link="base_link"/>
     <child link="left_wheel"/>
     <origin rpy="-1.5708 0 0" xyz="-0.2825 0.125 -.15"/>
-  </joint>
+  </joint> -->
 
   <!-- Hokuyo Laser -->
-  <link name="hokuyo_link">
+  <!-- <link name="hokuyo_link">
     <collision>
       <origin xyz="0 0 0" rpy="0 0 0"/>
       <geometry>
@@ -151,7 +159,7 @@
     <origin xyz="0 0 0.2" rpy="0 0 0"/>
     <parent link="base_link"/>
     <child link="hokuyo_link"/>
-  </joint>
+  </joint> -->
 
   <gazebo>
     <plugin name="differential_drive_controller" filename="libgazebo_ros_diff_drive.so">
