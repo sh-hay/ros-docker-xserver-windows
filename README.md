@@ -86,6 +86,18 @@ docker run -it --rm --name xserver_container xserver_image roslaunch /turtlesim.
 
 ```
 
+## 実行（Linux）
+```bash
+$ cd ros-docker-xserver-windows
+$ docker build -t xserver_image .
+$ docker run -it --rm \
+  --name xserver_container \
+  --volume=/tmp/.X11-unix:/tmp/.X11-unix \
+  --device=/dev/dri:/dev/dri \
+  --env="DISPLAY=$DISPLAY"   \
+  xserver_image
+```
+
 カメさんが出ればOK  
 ![turtlesim](https://user-images.githubusercontent.com/58795536/146705247-5bdb6235-66db-4355-b8db-7ae6c7cde017.png)
 

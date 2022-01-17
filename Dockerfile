@@ -8,6 +8,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 RUN apt-get update && apt-get install -y \
     xserver-xorg \
     # x11-apps \
+    libgl1-mesa-glx \
+    libgl1-mesa-dri \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
@@ -24,6 +26,8 @@ RUN apt-get update && apt-get install -y \
 
 RUN useradd -m -d /home/DockerUser DockerUser -p $(perl -e 'print crypt("DockerUser", "salt"),"\n"') && \
     echo "DockerUser ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
+
+ENV QT_X11_NO_MITSHM 1
 
 ENV USER DockerUser
 USER DockerUser
